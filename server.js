@@ -1,20 +1,11 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var PORT = process.env.PORT || 3000;
-var todos = [{
-  id: 1,
-  description: 'Meet mom for lunch',
-  completed: false
-}, {
-	id: 2,
-	description: 'Do work',
-	completed: false
-}, {
-	id: 3,
-	description: 'Eat dinner',
-	completed: true
-}];
+var todos = [];
+var todoNextId = 1;
 
+app.use(bodyParser.json());
 //GET
 app.get('/todos', function(req,res){
   res.json(todos);
@@ -42,4 +33,11 @@ app.get('/', function(req,res){
 
 app.listen(PORT, function(){
   console.log('Express listening on port ' + PORT);
+});
+
+app.post('/todos', function(req,res){
+  var body = req.body;
+  body.id = todoNextId++;
+  todos.push(body);
+  res.json(body);
 });
