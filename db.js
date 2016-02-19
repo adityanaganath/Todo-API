@@ -7,7 +7,7 @@ if (env === 'production') {
  });
 }
 else {
-  sequelize = new Sequelize(process.env.DATABASE_URL {
+  sequelize = new Sequelize(undefined,undefined,undefined, {
 	'dialect': 'sqlite',
 	'storage': __dirname + '/data/dev-todo-api.sqlite'
 });
